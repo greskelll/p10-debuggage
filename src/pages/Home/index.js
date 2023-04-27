@@ -132,6 +132,7 @@ const Page = () => {
 				<div className="col presta">
 					<h3>Notre derniére prestation</h3>
 					<EventCard
+						/* récupère le premier élément du tableau trié via son index */
 						imageSrc={byDateUp?.[0].cover}
 						title={byDateUp?.[0].title}
 						date={new Date(byDateUp?.[0].date)}
