@@ -8,7 +8,7 @@ const Slider = () => {
 	const { data } = useData();
 	const [index, setIndex] = useState(0);
 	const byDateDesc = data?.focus.sort((evtA, evtB) =>
-		/* renvoie un tableau trié qui compare année puis mois puis jour
+		/* renvoie un tableau trié qui compare année puis mois puis jour de old vers new
 		ex: 2021-05-12 > 2022-11-25 > 2023-03-13  */
 		new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
 	);
@@ -27,7 +27,7 @@ const Slider = () => {
 			{byDateDesc?.map((event, idx) => (
 				<>
 					<div
-						key={event.title}
+						key={event.title + event.id}
 						className={`SlideCard SlideCard--${
 							index === idx ? 'display' : 'hide'
 						}`}
@@ -46,7 +46,7 @@ const Slider = () => {
 							{byDateDesc.map((_, radioIdx) => (
 								<input
 									/* changement key pour corriger key non unique ? p-e */
-									key={`${event.title + event.id}`}
+									key={event.id}
 									type="radio"
 									name="radio-button"
 									/* changement comparaison index === radioIdx plutot que idx === radioIdx */
