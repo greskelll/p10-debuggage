@@ -19,8 +19,6 @@ const Select = ({
 		onChange();
 		setValue(newValue);
 		setCollapsed(newValue);
-		/* ici on a bien le state que l'on souhaite utiliser pour le composant type */
-		console.log(`comp select state ${newValue}`);
 	};
 	return (
 		<div className={`SelectContainer ${type}`} data-testid="select-testid">
@@ -64,7 +62,6 @@ const Select = ({
 				<input
 					type="hidden"
 					value={value || ''}
-					/* value a récupérer pour filtrer */
 					name={name}
 					id="selectedType"
 				/>

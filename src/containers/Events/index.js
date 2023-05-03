@@ -13,15 +13,14 @@ const EventList = () => {
 	const { data, error } = useData();
 	const [type, setType] = useState();
 	const [currentPage, setCurrentPage] = useState(1);
-	/* essai filtre */
-	const testFilter = data?.events.filter(
-		(event) => event.type === 'conférence'
-	);
-
+	/* le filtre renvoi bien un tableau filtrer */
+	const testFilter = type
+		? data?.events.filter((event) => event.type === type)
+		: data?.events;
 	console.log(testFilter);
+	/* on a a bien un filtrage mais avec un decalage + le par defaut ne fonctionne plus */
 
-	/* essai filtre */
-	const filteredEvents = ((!type ? data?.events : data?.events) || []).filter(
+	const filteredEvents = ((type ? testFilter : data?.events) || []).filter(
 		(_, index) => {
 			if (
 				(currentPage - 1) * PER_PAGE <= index &&
@@ -36,6 +35,7 @@ const EventList = () => {
 	const changeType = (evtType) => {
 		setCurrentPage(1);
 		setType(evtType);
+		console.log(evtType);
 	};
 	const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
 	const typeList = new Set(data?.events.map((event) => event.type));
@@ -52,12 +52,18 @@ const EventList = () => {
 					<h3 className="SelectTitle">Catégories</h3>
 					<Select
 						selection={Array.from(typeList)}
-						onChange={(value) =>
-							value ? changeType(value) : changeType(null)
+						/* le trigger onChange se declenche trop tôt , changeType est appelé avant que la value soit a jour */
+						onChange={() =>
+							document.getElementById('selectedType').value
+								? changeType(
+										document.getElementById('selectedType')
+											.value
+								  )
+								: changeType(null)
 						}
 					/>
 					<div id="events" className="ListContainer">
-						{filteredEvents.map((event) => (
+						{testFilter.map((event) => (
 							<Modal
 								key={event.id}
 								Content={<ModalEvent event={event} />}
@@ -69,6 +75,7 @@ const EventList = () => {
 										title={event.title}
 										date={new Date(event.date)}
 										label={event.type}
+										/* Toute les périodes insique 24-25-26 février ??? dans le JSON */
 									/>
 								)}
 							</Modal>
