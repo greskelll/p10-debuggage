@@ -133,8 +133,10 @@ const Page = () => {
 					<h3>Notre derniére prestation</h3>
 					<EventCard
 						/* récupère le premier élément du tableau trié via son index */
-						imageSrc={byDateUp?.[0].cover}
-						title={byDateUp?.[0].title}
+						imageSrc={
+							byDateUp?.[0].cover || './public/images/no_src.png'
+						}
+						title={byDateUp?.[0].title || 'failed to load event'}
 						date={new Date(byDateUp?.[0].date)}
 						small
 						label="boom"
