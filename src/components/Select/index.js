@@ -14,14 +14,11 @@ const Select = ({
 	type = 'normal',
 }) => {
 	const [value, setValue] = useState();
-	console.log(value);
-
 	const [collapsed, setCollapsed] = useState(true);
 	const changeValue = (newValue) => {
 		setValue(newValue);
 		setCollapsed(newValue);
 		onChange(newValue);
-		/* onChange etait apelé avant que la value est changé */
 	};
 
 	return (

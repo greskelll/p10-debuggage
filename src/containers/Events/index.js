@@ -14,19 +14,18 @@ const EventList = () => {
 	const [type, setType] = useState();
 	const [currentPage, setCurrentPage] = useState(1);
 	/* le filtre renvoi bien un tableau filtrer */
-	const testFilter = type
+	const eventFilter = type
 		? data?.events.filter((event) => event.type === type)
 		: data?.events;
-	console.log(testFilter);
-	/* on a a bien un filtrage manque la pagination */
 
-	const filteredEvents = ((type ? testFilter : data?.events) || []).filter(
-		(_, index) => {
+	/* on génére la page avec pagination et on utlise les datas filtrés ou non */
+	const filteredEvents = ((type ? eventFilter : data?.events) || []).filter(
+		(event, index) => {
 			if (
 				(currentPage - 1) * PER_PAGE <= index &&
 				PER_PAGE * currentPage > index
 			) {
-				return true;
+				return event;
 			}
 			return false;
 		}
@@ -38,6 +37,7 @@ const EventList = () => {
 
 	const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
 	const typeList = new Set(data?.events.map((event) => event.type));
+	/* premier pb de key */
 	/*  renvoi les events disponible dans le selecteur */
 
 	console.log(typeList);
@@ -54,7 +54,7 @@ const EventList = () => {
 						selection={Array.from(typeList)}
 					/>
 					<div id="events" className="ListContainer">
-						{testFilter.map((event) => (
+						{filteredEvents.map((event) => (
 							<Modal
 								key={event.id}
 								Content={<ModalEvent event={event} />}

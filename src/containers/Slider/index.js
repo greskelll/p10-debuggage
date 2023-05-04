@@ -23,10 +23,11 @@ const Slider = () => {
 	useEffect(() => {
 		nextCard(byDateDesc?.length);
 	});
+	console.log(byDateDesc);
 	return (
 		<div className="SlideCardList">
 			{byDateDesc?.map((event, idx) => (
-				<div key={`pourquoi${event.title + event.id}`}>
+				<div key={event.id}>
 					<div
 						className={`SlideCard SlideCard--${
 							index === idx ? 'display' : 'hide'
