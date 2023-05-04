@@ -18,7 +18,7 @@ const EventList = () => {
 		? data?.events.filter((event) => event.type === type)
 		: data?.events;
 	console.log(testFilter);
-	/* on a a bien un filtrage mais avec un decalage + le par defaut ne fonctionne plus */
+	/* on a a bien un filtrage manque la pagination */
 
 	const filteredEvents = ((type ? testFilter : data?.events) || []).filter(
 		(_, index) => {
@@ -31,12 +31,11 @@ const EventList = () => {
 			return false;
 		}
 	);
-
-	const changeType = (evtType) => {
+	const GetData = (value) => {
+		setType(value);
 		setCurrentPage(1);
-		setType(evtType);
-		console.log(evtType);
 	};
+
 	const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
 	const typeList = new Set(data?.events.map((event) => event.type));
 	/*  renvoi les events disponible dans le selecteur */
@@ -51,16 +50,8 @@ const EventList = () => {
 				<>
 					<h3 className="SelectTitle">Catégories</h3>
 					<Select
+						onChange={GetData}
 						selection={Array.from(typeList)}
-						/* le trigger onChange se declenche trop tôt , changeType est appelé avant que la value soit a jour */
-						onChange={() =>
-							document.getElementById('selectedType').value
-								? changeType(
-										document.getElementById('selectedType')
-											.value
-								  )
-								: changeType(null)
-						}
 					/>
 					<div id="events" className="ListContainer">
 						{testFilter.map((event) => (

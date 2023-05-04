@@ -14,12 +14,16 @@ const Select = ({
 	type = 'normal',
 }) => {
 	const [value, setValue] = useState();
+	console.log(value);
+
 	const [collapsed, setCollapsed] = useState(true);
 	const changeValue = (newValue) => {
-		onChange();
 		setValue(newValue);
 		setCollapsed(newValue);
+		onChange(newValue);
+		/* onChange etait apelé avant que la value est changé */
 	};
+
 	return (
 		<div className={`SelectContainer ${type}`} data-testid="select-testid">
 			{label && <div className="label">{label}</div>}
@@ -47,6 +51,8 @@ const Select = ({
 								</li>
 							)}
 							{selection.map((s) => (
+								/* lorsque je clique sur mon element li la value change bien,
+								on veut modifier le filtrage au même moment */
 								<li key={s} onClick={() => changeValue(s)}>
 									<input
 										defaultChecked={value === s}
