@@ -19,17 +19,15 @@ const EventList = () => {
 		: data?.events;
 
 	/* on génére la page avec pagination et on utlise les datas filtrés ou non */
-	const filteredEvents = ((type ? eventFilter : data?.events) || []).filter(
-		(event, index) => {
-			if (
-				(currentPage - 1) * PER_PAGE <= index &&
-				PER_PAGE * currentPage > index
-			) {
-				return event;
-			}
-			return false;
+	const filteredEvents = (eventFilter || []).filter((event, index) => {
+		if (
+			(currentPage - 1) * PER_PAGE <= index &&
+			PER_PAGE * currentPage > index
+		) {
+			return event;
 		}
-	);
+		return false;
+	});
 	const GetData = (value) => {
 		setType(value);
 		setCurrentPage(1);
@@ -37,10 +35,10 @@ const EventList = () => {
 
 	const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
 	const typeList = new Set(data?.events.map((event) => event.type));
+
 	/* premier pb de key */
 	/*  renvoi les events disponible dans le selecteur */
 
-	console.log(typeList);
 	return (
 		<>
 			{error && <div>An error occured</div>}
@@ -66,7 +64,6 @@ const EventList = () => {
 										title={event.title}
 										date={new Date(event.date)}
 										label={event.type}
-										/* Toute les périodes insique 24-25-26 février ??? dans le JSON */
 									/>
 								)}
 							</Modal>
@@ -76,7 +73,7 @@ const EventList = () => {
 						{[...Array(pageNumber || 0)].map((_, n) => (
 							// eslint-disable-next-line react/no-array-index-key
 							<a
-								key={n.index}
+								key={_}
 								href="#events"
 								onClick={() => setCurrentPage(n + 1)}
 							>

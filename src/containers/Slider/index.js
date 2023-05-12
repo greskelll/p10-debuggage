@@ -45,7 +45,7 @@ const Slider = () => {
 						<div className="SlideCard__pagination">
 							{byDateDesc?.map((_, radioIdx) => (
 								<input
-									key={event.Date}
+									key={byDateDesc?.id}
 									/* changement key pour corriger key non unique ? p-e */
 									type="radio"
 									name="radio-button"
