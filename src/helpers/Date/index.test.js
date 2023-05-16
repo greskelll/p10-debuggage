@@ -1,6 +1,3 @@
-/**
- *
- */
 import { getMonth } from './index';
 
 describe('Date helper', () => {
