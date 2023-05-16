@@ -48,8 +48,6 @@ const Select = ({
 								</li>
 							)}
 							{selection.map((s) => (
-								/* lorsque je clique sur mon element li la value change bien,
-								on veut modifier le filtrage au même moment */
 								<li key={s} onClick={() => changeValue(s)}>
 									<input
 										defaultChecked={value === s}

@@ -19,12 +19,12 @@ const EventList = () => {
 	const { data, error } = useData();
 	const [type, setType] = useState();
 	const [currentPage, setCurrentPage] = useState(1);
-	/* le filtre renvoi bien un tableau filtrer */
+	/* le filtre renvoi un tableau filtrer */
 	const eventFilter = type
 		? data?.events.filter((event) => event.type === type)
 		: data?.events;
 
-	/* on génére la page avec pagination et on utlise les datas filtrés ou non */
+	/* on génére la page avec pagination et on utilise les datas filtrés ou non */
 	const filteredEvents = (eventFilter || []).filter((event, index) => {
 		if (
 			(currentPage - 1) * PER_PAGE <= index &&

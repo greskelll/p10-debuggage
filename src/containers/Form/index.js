@@ -26,9 +26,6 @@ const Form = ({ onSuccess, onError }) => {
 			}
 		},
 		[onSuccess, onError]
-		/* dependency array, valeur que React surveille , si elle change la fonction est rerender, sinon on utilise la version memoisé
-		le but est de rerender la fonction uniquement si on a fait un envoi ou reçu une erreur
-		ici donc onSuccess et onError */
 	);
 	return (
 		<form onSubmit={sendContact}>

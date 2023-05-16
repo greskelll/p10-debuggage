@@ -5,8 +5,6 @@ import './style.scss';
 
 const Modal = ({ opened, Content, children }) => {
 	const [isOpened, setIsOpened] = useState(opened);
-	/* si je passe le state depuis react dev tool en true la modal s'ouvre bien
-	donc je dois passer le state en true lorsque le formulaire est submit correctement */
 	return (
 		<>
 			{children({ isOpened, setIsOpened })}
