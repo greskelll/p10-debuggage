@@ -7,7 +7,6 @@ import Button, { BUTTON_TYPES } from '../../components/Button';
 const mockContactApi = () =>
 	new Promise((resolve) => {
 		setTimeout(resolve, 1000);
-		console.log('bien envoyé');
 	});
 
 const Form = ({ onSuccess, onError }) => {
@@ -19,13 +18,11 @@ const Form = ({ onSuccess, onError }) => {
 			// We try to call mockContactApi
 			try {
 				await mockContactApi();
-				setSending(false);
 				onSuccess();
-				/* il manquait le onSuccess a effectué en cas de réussite */
+				setSending(false);
 			} catch (err) {
 				setSending(false);
 				onError(err);
-				console.log('non envoyé');
 			}
 		},
 		[onSuccess, onError]
@@ -47,11 +44,7 @@ const Form = ({ onSuccess, onError }) => {
 						titleEmpty
 					/>
 					<Field placeholder="" label="Email" required />
-					<Button
-						type={BUTTON_TYPES.SUBMIT}
-						disabled={sending === true}
-						/* modif faites ici , est bien disabled lorsque l'envoi est en cours */
-					>
+					<Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
 						{sending ? 'En cours' : 'Envoyer'}
 					</Button>
 				</div>
