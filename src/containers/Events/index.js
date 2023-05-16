@@ -9,6 +9,12 @@ import './style.css';
 
 const PER_PAGE = 9;
 
+let keyNumber = 0;
+function generateKey() {
+	keyNumber += 1;
+	return keyNumber.toString();
+}
+
 const EventList = () => {
 	const { data, error } = useData();
 	const [type, setType] = useState();
@@ -36,9 +42,6 @@ const EventList = () => {
 	const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
 	const typeList = new Set(data?.events.map((event) => event.type));
 
-	/* premier pb de key */
-	/*  renvoi les events disponible dans le selecteur */
-
 	return (
 		<>
 			{error && <div>An error occured</div>}
@@ -54,7 +57,7 @@ const EventList = () => {
 					<div id="events" className="ListContainer">
 						{filteredEvents.map((event) => (
 							<Modal
-								key={event.id}
+								key={generateKey()}
 								Content={<ModalEvent event={event} />}
 							>
 								{({ setIsOpened }) => (
@@ -69,11 +72,11 @@ const EventList = () => {
 							</Modal>
 						))}
 					</div>
-					<div className="Pagination">
+					<div key={pageNumber} className="Pagination">
 						{[...Array(pageNumber || 0)].map((_, n) => (
 							// eslint-disable-next-line react/no-array-index-key
 							<a
-								key={_}
+								key={generateKey()}
 								href="#events"
 								onClick={() => setCurrentPage(n + 1)}
 							>

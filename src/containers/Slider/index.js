@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useData } from '../../contexts/DataContext';
 import { getMonth } from '../../helpers/Date';
-
 import './style.scss';
+
+let keyNumber = 0;
+function generateKey() {
+	keyNumber += 1;
+	return keyNumber.toString();
+}
 
 const Slider = () => {
 	const { data } = useData();
@@ -25,11 +30,11 @@ const Slider = () => {
 	});
 	return (
 		<div className="SlideCardList">
-			{byDateDesc?.map((event, idx) => (
-				<div key={event.id}>
+			{byDateDesc?.map((event, id) => (
+				<div key={generateKey()}>
 					<div
 						className={`SlideCard SlideCard--${
-							index === idx ? 'display' : 'hide'
+							index === id ? 'display' : 'hide'
 						}`}
 					>
 						<img src={event.cover} alt="forum" />
@@ -45,7 +50,7 @@ const Slider = () => {
 						<div className="SlideCard__pagination">
 							{byDateDesc?.map((_, radioIdx) => (
 								<input
-									key={byDateDesc?.id}
+									key={generateKey()}
 									/* changement key pour corriger key non unique ? p-e */
 									type="radio"
 									name="radio-button"
