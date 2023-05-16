@@ -28,7 +28,8 @@ describe('When Form is created', () => {
 
 describe('When a page is created', () => {
 	it('a list of events is displayed', () => {
-		// to implement
+		render(<Home />);
+		screen.findByText('Nos réalisations');
 	});
 
 	it('a list a people is displayed', async () => {
@@ -44,7 +45,9 @@ describe('When a page is created', () => {
 		await screen.findAllByText('Notre derniére prestation');
 		await screen.findAllByText('01 23 45 67 89');
 	});
-	it('an event card, with the last event, is displayed', () => {
-		// to implement
+	it('an event card, with the last event, is displayed', async () => {
+		render(<Home />);
+		const lastDisplayed = await screen.findByText('boom');
+		expect(lastDisplayed).toBeInTheDocument();
 	});
 });
